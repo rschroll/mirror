@@ -25,49 +25,45 @@
 
 <body class="container">
   <h1>Mirror Window</h1>
-  <p>
-    <span id='paused'><button onclick="startCapture()">Select Window</button></span>
-    <span id='running' hidden>
-      <button onclick="stopCapture()">Stop Mirroring</button>
-      <button onclick="fullscreen()">Go Fullscreen</button>
-    </span>
-  </p>
-  <video autoplay></video>
+  <div id='paused'>
+    <button onclick="startCapture()">Select Window</button>
+  </div>
+  <div id='running' hidden>
+    <button onclick="stopCapture()">Stop Mirroring</button>
+    <button onclick="fullscreen()">Go Fullscreen</button>
+    <video autoplay></video>
+  </div>
 
   <script>
-    let displayMediaOptions = {
-      // Chrome pics video size from current display
-      video: { cursor: 'always', /*aspectRatio: 1*/ },
-      audio: false
-    };
-    let video = document.querySelector('video');
-    let paused = document.querySelector('#paused');
-    let running = document.querySelector('#running');
+    let $ = document.querySelector.bind(document);
+    let video = $('video');
 
     async function startCapture() {
+      let displayMediaOptions = {
+        // Chrome pics video size from current display
+        video: { cursor: 'always', /*aspectRatio: 1*/ },
+        audio: false
+      };
       try {
         video.srcObject = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
       } catch(e) {
         console.log("Error getting video:", e);
+        return;
       }
-      paused.hidden = true;
-      running.hidden = false;
+      video.srcObject.getTracks().forEach((track) => { console.log(track.getSettings()); });
+      $('#paused').hidden = true;
+      $('#running').hidden = false;
     }
 
     function stopCapture() {
-      let tracks = video.srcObject.getTracks();
-      tracks.forEach((track) => {console.log(track.getSettings()); track.stop()});
+      video.srcObject.getTracks().forEach((track) => { track.stop(); });
       video.srcObject = null;
-      paused.hidden = false;
-      running.hidden = true;
+      $('#paused').hidden = false;
+      $('#running').hidden = true;
     }
 
     function fullscreen() {
       video.requestFullscreen();
-    }
-
-    async function openWindow() {
-      mirror = window.open('mirror.html', 'mirror', 'menubar=0,toolbar=0,location=0,status=0');
     }
   </script>
 </body>
