@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <style>
+    body {
+      margin: 0 auto;
+      padding: 0 2em;
+      max-width: 800px;
+      margin-bottom: 50px;
+      line-height: 1.6em;
+      font-family: sans-serif;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+
+  <title>Mirror Window</title>
+</head>
+
+<body class="container">
+  <h1>Mirror Window</h1>
+  <p>
+    <span id='paused'><button onclick="startCapture()">Select Window</button></span>
+    <span id='running' hidden>
+      <button onclick="stopCapture()">Stop Mirroring</button>
+      <button onclick="fullscreen()">Go Fullscreen</button>
+    </span>
+  </p>
+  <video autoplay></video>
+
+  <script>
+    let displayMediaOptions = {
+      // Chrome pics video size from current display
+      video: { cursor: 'always', /*aspectRatio: 1*/ },
+      audio: false
+    };
+    let video = document.querySelector('video');
+    let paused = document.querySelector('#paused');
+    let running = document.querySelector('#running');
+
+    async function startCapture() {
+      try {
+        video.srcObject = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
+      } catch(e) {
+        console.log("Error getting video:", e);
+      }
+      paused.hidden = true;
+      running.hidden = false;
+    }
+
+    function stopCapture() {
+      let tracks = video.srcObject.getTracks();
+      tracks.forEach((track) => {console.log(track.getSettings()); track.stop()});
+      video.srcObject = null;
+      paused.hidden = false;
+      running.hidden = true;
+    }
+
+    function fullscreen() {
+      video.requestFullscreen();
+    }
+
+    async function openWindow() {
+      mirror = window.open('mirror.html', 'mirror', 'menubar=0,toolbar=0,location=0,status=0');
+    }
+  </script>
+</body>
+</html>
