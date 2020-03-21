@@ -26,7 +26,21 @@
 <body class="container">
   <h1>Mirror Window</h1>
   <div id='paused'>
-    <button onclick="startCapture()">Select Window</button>
+    <div><button onclick="startCapture()">Select Window</button></div>
+    <div>
+      Cursor capture
+      <select id="cursor">
+        <option value="always">always</option>
+        <option value="motion">motion</option>
+        <option value="never">never</option>
+      </select>
+    </div>
+    <div>
+      Resolution (optional)
+      <input id="width" type="number" min="0" max="9999" placeholder="width" />
+      &times;
+      <input id="height" type="number" min="0" max="9999" placeholder="height" />
+    </div>
   </div>
   <div id='running' hidden>
     <button onclick="stopCapture()">Stop Mirroring</button>
@@ -40,8 +54,11 @@
 
     async function startCapture() {
       let displayMediaOptions = {
-        // Chrome pics video size from current display
-        video: { cursor: 'always', /*aspectRatio: 1*/ },
+        video: {
+          cursor: $('#cursor').value,
+          width: $('#width').value || null,
+          height: $('#height').value || null
+        },
         audio: false
       };
       try {
