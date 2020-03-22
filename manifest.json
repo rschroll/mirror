@@ -1,0 +1,21 @@
+{
+  "name": "Mirror Window",
+  "short_name": "Mirror",
+  "start_url": "/mirror/",
+  "display": "standalone",
+  "background_color": "white",
+  "theme_color": "#51A7F9",
+  "icons": [{
+    "src": "/mirror/images/mirror192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },{
+    "src": "/mirror/images/mirror256.png",
+    "sizes": "256x256",
+    "type": "image/png"
+  },{
+    "src": "/mirror/images/mirror512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }]
+}
