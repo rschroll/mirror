@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="images/mirror192.png">
   <style>
     body {
       margin: 0 auto;
@@ -53,7 +54,9 @@
     <p>The <i>Cursor capture</i> option controls whether the mouse cursor should be captured in the video stream.  Unfortunately, this option is <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints/cursor#Browser_compatibility">only supported by Opera</a>.  Chrome always uses the <i>motion</i> setting, showing the cursor when it's moving and hiding it after a few seconds of stillness.  Firefox always uses the <i>never</i> setting.</p>
     <p>The video stream picks a resolution indepedent of the window being mirrored.  By default, it will use the resolution of the display currently showing the window.  You can override this with the <i>Resolution</i> options.  If only one is specified, the other will be worked out from the aspect ratio of the current display.</p>
     <h2>Does it need the Internet?</h2>
-    <p>Nope!  The video stream is handled entirely locally, so it will continue to work if you lose the internet connection.</p>
+    <p>Nope!  The video stream is handled entirely locally, so it doesn't need any Internet connection.  In fact, this page is served as a Progressive Web App, so you can load it without Internet access in the future and even "install" it on your desktop.</p>
+    <h2>Where's the source?</h2>
+    <p>You have it all in this webpage, basically.  But if you want to contribute or report a problem, go to the <a href="https://github.com/rschroll/mirror">GitHub project</a>.</p>
   </div>
   <div id='running' hidden>
     <p>
