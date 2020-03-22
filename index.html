@@ -10,7 +10,7 @@
       padding: 0 2em;
       max-width: 800px;
       margin-bottom: 50px;
-      line-height: 1.6em;
+      line-height: 1.4em;
       font-family: sans-serif;
     }
 
@@ -41,10 +41,24 @@
       &times;
       <input id="height" type="number" min="0" max="9999" placeholder="height" />
     </div>
+    <h2>What is this?</h2>
+    <p>This page lets you mirror a window (or your entire desktop) in a video element.  This video can be played fullscreen.</p>
+    <h2>Why would I want to do that?</h2>
+    <p>I often give presentations wherein I want to show the audience a particular window on my desktop.  At the same time, I like to have other windows open, with notes, code samples, timers, etc.  I don't want the audience to see these, so I can't just mirror my screen on the external display.  In many cases, the external display is behind me, so I cannot simply put the window to be shared on the external screen only.  In the past, I've use <a href="https://www.x.org/releases/X11R7.7/doc/man/man1/xrandr.1.xhtml">xrandr</a> tricks to make the external screen mirror only a portion of my primary screen, but this occasionally crashed my X server.  With this, I can keep the window to be shared on my primary screen, while showing this window, with the mirrored content, on the external screen.</p>
+    <h2>How does it work?</h2>
+    <p><span title="Motto: Watch this, Emacs!">Web tech</span> all the way.  You may have noticed that you can do screen sharing directly from your browser.  This uses the same <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API">Screen Capture API</a>, but displays the video on the same page, rather than shipping it over the Internet.  The basics of this were cribbed from this <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture">MDN example</a>.</p>
+    <p>To start mirroring a window, press the <i>Select Window</i> button above.  Your browser will display a dialog letting you select what to mirror.  (Your exact options will depend on the browser you're using.)  Once you select the window to display, video of that will be displayed on this page.  Press <i>Go Fullscreen</i> to display the video fullscreen on the current display.  <i>Stop Mirroring</i> returns you to this page.</p>
+    <h3>Options</h3>
+    <p>The <i>Cursor capture</i> option controls whether the mouse cursor should be captured in the video stream.  Unfortunately, this option is <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints/cursor#Browser_compatibility">only supported by Opera</a>.  Chrome always uses the <i>motion</i> setting, showing the cursor when it's moving and hiding it after a few seconds of stillness.  Firefox always uses the <i>never</i> setting.</p>
+    <p>The video stream picks a resolution indepedent of the window being mirrored.  By default, it will use the resolution of the display currently showing the window.  You can override this with the <i>Resolution</i> options.  If only one is specified, the other will be worked out from the aspect ratio of the current display.</p>
+    <h2>Does it need the Internet?</h2>
+    <p>Nope!  The video stream is handled entirely locally, so it will continue to work if you lose the internet connection.</p>
   </div>
   <div id='running' hidden>
-    <button onclick="stopCapture()">Stop Mirroring</button>
-    <button onclick="fullscreen()">Go Fullscreen</button>
+    <p>
+      <button onclick="stopCapture()">Stop Mirroring</button>
+      <button onclick="fullscreen()">Go Fullscreen</button>
+    </p>
     <video autoplay></video>
   </div>
 
